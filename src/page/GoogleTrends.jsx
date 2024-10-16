@@ -47,11 +47,16 @@ const GoogleTrends = () => {
         };
     }, []);
 
+    const handleGoBack = () => {
+        window.history.back();
+    };
+
     return (
         <div>
             <h1>딥페이크에 대한 관심도</h1>
-            <div id="geo-map"></div>
-            <div id="time-series"></div>
+            <div className='map' id="geo-map"></div>
+            <div className='time' id="time-series"></div>
+            <button onClick={handleGoBack}>뒤로가기</button>
         </div>
     );
 };
