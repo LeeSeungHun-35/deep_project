@@ -26,12 +26,12 @@ const Test = () => {
     <div className="upload-container">
       <div className="card">
         <h1>딥페이크 판독 서비스</h1>
-        <p>파일을 업로드하여 분석을 할 수 있습니다</p>
+        <p>딥페이크 의심 파일을 첨부하여 분석을 해볼 수 있습니다</p>
         <div className="upload-section">
-          <input id="fileInput" type="file" onChange={handleFileChange} />
+          <input id="fileInput" type="file" onChange={handleFileChange} /> <br/>
           <div className="button-group">
-            <button onClick={handleUpload}>업로드</button>
-            <button onClick={handleCancel} className="cancel-button">취소</button>
+            <button onClick={handleUpload}>업로드</button> | 
+            | <button onClick={handleCancel} className="cancel-button"> 업로드 취소</button>
           </div>
         </div>
         {selectedFile && <p>내가 선택한 파일: {selectedFile.name}</p>}
