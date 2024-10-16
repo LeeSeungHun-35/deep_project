@@ -49,7 +49,7 @@ const GoogleTrends = () => {
 
     return (
         <div>
-            <h1>딥페이크에 대한 구글 트렌드</h1>
+            <h1>딥페이크에 대한 관심도</h1>
             <div id="geo-map"></div>
             <div id="time-series"></div>
         </div>
