@@ -4,7 +4,7 @@ import './Test.css';
 
 const Test = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [result, setResult] = useState('');
+  const [results, setResults] = useState([]);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -22,7 +22,7 @@ const Test = () => {
           },
         });
 
-        setResult(response.data.result); // 백엔드에서 반환한 결과를 상태에 저장
+        setResults(response.data.result.results); // 백엔드에서 반환한 결과를 상태에 저장
         alert(`File uploaded: ${selectedFile.name}`);
       } catch (error) {
         console.error('Error uploading file:', error);
@@ -35,8 +35,8 @@ const Test = () => {
 
   const handleCancel = () => {
     setSelectedFile(null);
-    setResult('');
-    document.getElementById('fileInput').value = ''; //파일 취소 시키는 부분
+    setResults([]);
+    document.getElementById('fileInput').value = ''; // 파일 취소 시키는 부분
   };
 
   return (
@@ -47,12 +47,23 @@ const Test = () => {
         <div className="upload-section">
           <input id="fileInput" type="file" onChange={handleFileChange} /> <br/>
           <div className="button-group">
-            <button onClick={handleUpload}>업로드</button> | 
-            | <button onClick={handleCancel} className="cancel-button"> 업로드 취소</button>
+            <button onClick={handleUpload}>업로드</button>
+            <button onClick={handleCancel} className="cancel-button"> 업로드 취소</button>
           </div>
         </div>
         {selectedFile && <p>내가 선택한 파일: {selectedFile.name}</p>}
-        {result && <p>분석 결과: {result}</p>}
+        {results.length > 0 && (
+          <div>
+            <h3>분석 결과:</h3>
+            <ul>
+              {results.map((result, index) => (
+                <li key={index}>
+                  Frame {result.frame}: {result.status} (Confidence: {result.confidence.toFixed(2)})
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
