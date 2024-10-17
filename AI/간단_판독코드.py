@@ -36,7 +36,7 @@ def create_model():
 uploaded = files.upload()      #여기서 사용자의 파일(영상)을 입력받음
 video_path = list(uploaded.keys())[0]
 
-frames = load_data(video_path)   # 비디오 데이터 로드된걸 프레임 수 계산
+frames = load_data(video_path)   #영상 프레임의 개수를 화ㄱ인한다
 num_frames = frames.shape[0]
 
 # 모델 생성/예측
@@ -57,8 +57,8 @@ data = pd.DataFrame({
 
 plt.figure(figsize=(12, 6))
 
-sns.lineplot(data=data, x='Frame', y='Prediction', marker='o', color='blue', label='predict')
-plt.axhline(y=0.5, color='red', linestyle='--', label='criterion')
+sns.lineplot(data=data, x='Frame', y='Prediction', marker='o', color='blue', label='predict')         # 프레임별 에측 선
+plt.axhline(y=0.5, color='red', linestyle='--', label='criterion')                                 # 딥페이크다 아니다를 판단할 기준선 (0.5) 긋기
 
 # 그래프 만드는 부분ㄴ
 plt.title('deepfake(predict)')
