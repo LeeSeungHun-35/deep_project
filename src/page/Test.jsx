@@ -1,17 +1,33 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './Test.css';
 
 const Test = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [result, setResult] = useState('');
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (selectedFile) {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
 
-      alert(`File uploaded: ${selectedFile.name}`);
+      try {
+        const response = await axios.post('http://localhost:5000/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        setResult(response.data.result); // 백엔드에서 반환한 결과를 상태에 저장
+        alert(`File uploaded: ${selectedFile.name}`);
+      } catch (error) {
+        console.error('Error uploading file:', error);
+        alert('파일 업로드에 실패했습니다.');
+      }
     } else {
       alert('Please select a file first.');
     }
@@ -19,6 +35,7 @@ const Test = () => {
 
   const handleCancel = () => {
     setSelectedFile(null);
+    setResult('');
     document.getElementById('fileInput').value = ''; //파일 취소 시키는 부분
   };
 
@@ -35,6 +52,7 @@ const Test = () => {
           </div>
         </div>
         {selectedFile && <p>내가 선택한 파일: {selectedFile.name}</p>}
+        {result && <p>분석 결과: {result}</p>}
       </div>
     </div>
   );
