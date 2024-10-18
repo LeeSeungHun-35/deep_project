@@ -1,4 +1,4 @@
-
+//서버 기본
 
 const express = require('express');  
 const app = express();              
@@ -6,7 +6,7 @@ const PORT = 3001;
 
 app.use(express.json());              
 
-// GET 요청 
+// GET부분ㄴ
 app.get('/', (req, res) => {
     res.send('백엔드 node 테스트');     
 });
